@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ writer.person_name }}'s Articles - MCMS{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ writer.person_name }}'s Articles</h2>
+    <div class="row">
+        {% for article in articles %}
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ article.title }}</h5>
+                    <p class="card-text"><strong>Content:</strong> {{ article.content }}</p>
+                    <p class="card-text"><strong>Keywords:</strong> {{ article.keywords }}</p>
+                    <p class="card-text"><strong>Category:</strong> {{ article.category }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col">
+            <p>No articles available for {{ writer.person_name }}.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

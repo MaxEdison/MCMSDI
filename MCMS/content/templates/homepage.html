@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Homepage - MCMS{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h1>Welcome to MCMS</h1>
+    <p>Manage your multimedia content with ease.</p>
+    <a href="{% url 'image_list' %}" class="btn btn-primary mt-3">View Images</a>
+    <a href="{% url 'article_list' %}" class="btn btn-primary mt-3">View Articles</a>
+</div>
+{% endblock %}

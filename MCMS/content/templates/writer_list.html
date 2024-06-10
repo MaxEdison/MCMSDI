@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Writer List - MCMS{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Writer List</h2>
+    <div class="row">
+        {% for writer in writers %}
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ writer.person_name }}</h5>
+                    <p class="card-text"><strong>Email:</strong> {{ writer.email }}</p>
+                    <a href="{% url 'writer_articles' writer_code=writer.id %}" class="btn btn-primary">View Articles</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col">
+            <p>No writers available.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

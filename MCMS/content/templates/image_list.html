@@ -1,0 +1,48 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+{% extends 'base.html' %}
+
+{% block title %}Image List - MCMS{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Images</h2>
+    <div class="dropdown mb-3">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Filter by Category
+        </button>
+        <div class="dropdown-menu" aria-labelledby="categoryDropdown">
+            <a class="dropdown-item" href="{% url 'image_list' %}">All</a>
+            {% for category in categories %}
+                <a class="dropdown-item" href="{% url 'image_list' %}?category={{ category }}">{{ category }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        {% for image in images %}
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <img src="{{ image.image_path }}" class="card-img-top" alt="{{ image.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ image.title }}</h5>
+                    <p class="card-text"><strong>Description:</strong> {{ image.descr }}</p>
+                    <p class="card-text"><strong>Tags:</strong> {{ image.tags }}</p>
+                    <p class="card-text"><strong>Category:</strong> {{ image.category }}</p>
+                    <form method="post" action="{% url 'update_data' image.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Update Info</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col">
+            <p>No images available.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>

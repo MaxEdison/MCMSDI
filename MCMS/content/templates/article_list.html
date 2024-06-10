@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Article List - MCMS{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Article List</h2>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="dropdown mb-3">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {% if selected_category %}
+                        {{ selected_category }}
+                    {% else %}
+                        Select Category
+                    {% endif %}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="categoryDropdown">
+                    <a class="dropdown-item{% if not selected_category %} active{% endif %}" href="{% url 'article_list' %}">All</a>
+                    {% for category in categories %}
+                    <a class="dropdown-item{% if category == selected_category %} active{% endif %}" href="{% url 'article_list' %}?category={{ category }}">{{ category }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        {% for article in articles %}
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ article.title }}</h5>
+                    <p class="card-text"><strong>Content:</strong> {{ article.content }}</p>
+                    <p class="card-text"><strong>Keywords:</strong> {{ article.keywords }}</p>
+                    <p class="card-text"><strong>Category:</strong> {{ article.category }}</p>
+                    <p class="card-text"><strong>Writer:</strong> {{ article.writer.person_name }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col">
+            <p>No articles available.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

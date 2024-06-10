@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Photographer List - MCMS{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Photographer List</h2>
+    <div class="row">
+        {% for photographer in photographers %}
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ photographer.person_name }}</h5>
+                    <p class="card-text"><strong>Email:</strong> {{ photographer.email }}</p>
+                    <a href="{% url 'photographer_images' photographer_code=photographer.id %}" class="btn btn-primary">View Photos</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col">
+            <p>No photographers available.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

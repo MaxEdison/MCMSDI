@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ photographer.person_name }}'s Photos - MCMS{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ photographer.person_name }}'s Photos</h2>
+    <div class="row">
+        {% for image in images %}
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <img src="{{ image.image_path }}" class="card-img-top" alt="{{ image.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ image.title }}</h5>
+                    <p class="card-text"><strong>Description:</strong> {{ image.descr }}</p>
+                    <p class="card-text"><strong>Tags:</strong> {{ image.tags }}</p>
+                    <p class="card-text"><strong>Category:</strong> {{ image.category }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col">
+            <p>No photos available for {{ photographer.person_name }}.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
