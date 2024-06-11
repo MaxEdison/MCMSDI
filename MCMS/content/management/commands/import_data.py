@@ -14,8 +14,12 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         self.create_database()
-        os.system('python3 manage.py makemigrations')
-        os.system('python3 manage.py migrate')
+        try:
+            os.system('python3 manage.py makemigrations')
+            os.system('python3 manage.py migrate')
+        except:
+            os.system('python manage.py makemigrations')
+            os.system('python manage.py migrate')
         self.import_people()
         self.import_images()
         self.import_articles()
